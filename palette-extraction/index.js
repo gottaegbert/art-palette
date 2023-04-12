@@ -52,19 +52,11 @@ function loadImage(src) {
                 //   imageData.data[i + 2] = gray;
                 // }
 
-                const PALETTE_COLORS_COUNT = 5;
+                const PALETTE_COLORS_COUNT = 10;
                   const IMAGE_MAX_WIDTH = 400;
               
                   const paletteElement = document.querySelector(".palette");
                   const paletteElements =  [];
-                  let i = 0;
-                  while (i < PALETTE_COLORS_COUNT) {
-                    const li = document.createElement('li');
-                    paletteElement.appendChild(li);
-                    paletteElements.push(li);
-                    i++;
-                  }
-                  document.body.appendChild(canvas);
                   const paletteExtractor = new PaletteExtractor();
                   const drawableRatio = img.width / img.height;
                   img.width = Math.min(IMAGE_MAX_WIDTH, img.width);
@@ -72,6 +64,14 @@ function loadImage(src) {
                   canvas.width = img.width;
                   canvas.height = img.height;
                   canvasContext.drawImage(img, 0, 0, img.width, img.height);
+                  let i = 0;
+                  while (i < PALETTE_COLORS_COUNT) {
+                    const li = document.createElement('li');
+                    document.body.appendChild(canvas);
+                    paletteElement.appendChild(li);
+                    paletteElements.push(li);
+                    i++;
+                  }
               
                   const data =canvasContext.getImageData(0, 0, img.width, img.height).data;
                   // Extracts the colors palette from image data.
@@ -81,13 +81,14 @@ function loadImage(src) {
                   let index = 0;
                   for(const paletteColorElem of paletteElements){
                     paletteColorElem.style.backgroundColor = hexPalette[index];
+                    
                     index++;
                   }
+                  resolve(canvas.toDataURL());
                 // // 将修改后的图像数据重新放回画布
                 // canvasContext.putImageData(imageData, 0, 0);
           
                 // 将修改后的图像数据作为 Promise 的返回值
-                resolve(canvas.toDataURL());
               };
               img.onerror = reject;
               img.src = src;
@@ -100,8 +101,8 @@ function loadImage(src) {
 async function processImages(images) {
   for (let i = 0; i < images.length; i++) {
     // 加载图片并将其转换为黑白模式
-    const blackAndWhiteDataUrl = await loadImage(images[i]);
-
+    // const blackAndWhiteDataUrl = await loadImage(images[i]);
+    await loadImage(images[i]);
     // // 将转换后的图像数据添加到页面上
     // const img = document.createElement('img');
     // img.src = blackAndWhiteDataUrl;
