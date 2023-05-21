@@ -32,8 +32,8 @@ function loadImage(src) {
                 const canvasContext = canvas.getContext('2d');
           
                 // 设置画布的宽高和图片一致
-                canvas.width = img.width;
-                canvas.height = img.height;
+                canvas.width = 1200;
+                canvas.height = 1400;
           
                 // 将图片绘制到画布上
                 // canvasContext.drawImage(img, 0, 0);
@@ -63,12 +63,13 @@ function loadImage(src) {
                   img.height = parseInt(img.width / drawableRatio, 10);
                   canvas.width = img.width;
                   canvas.height = img.height;
-                  canvasContext.drawImage(img, 0, 0, img.width, img.height);
                   let i = 0;
+                  canvasContext.drawImage(img, 0, 0, img.width, img.height);
                   while (i < PALETTE_COLORS_COUNT) {
                     const li = document.createElement('li');
                     document.body.appendChild(canvas);
                     paletteElement.appendChild(li);
+                    
                     paletteElements.push(li);
                     i++;
                   }
@@ -81,7 +82,7 @@ function loadImage(src) {
                   let index = 0;
                   for(const paletteColorElem of paletteElements){
                     paletteColorElem.style.backgroundColor = hexPalette[index];
-                    
+            
                     index++;
                   }
                   resolve(canvas.toDataURL());

@@ -1,3 +1,7 @@
+TODO: 
+[1]:导入d3，数据展示
+[2]:导出颜色数据对应表格
+
 # Palette Extractor
 
 [![Palette Extractor](palette_demo_example.jpg?raw=true)](https://htmlpreview.github.io/?https://github.com/googleartsculture/art-palette/blob/master/palette-extraction/index.html)
